@@ -86,9 +86,8 @@ const putUsers = async (req, res) => {
 
 const postOneUser = async (req, res) => {
   try {
-    const id = req.body.userID;
     const user = await prisma.user.findUnique({
-      where: { userID: id },
+      where: { userID: req.body.userID },
     });
 
     res.json(user);
@@ -102,24 +101,16 @@ const postOneUser = async (req, res) => {
 
 const patchUser = async (req, res) => {
   try {
-    const id = req.body.userID;
-    const newFirstName = req.body.firstName;
-    const newLastName = req.body.lastName;
-    const newAddress = req.body.address;
-    const newEmail = req.body.email;
-    const newContactNo = req.body.contactNo;
-    const newPassword = req.body.password;
-    const newIsAdmin = req.body.isAdmin;
     const updatedUser = await prisma.user.update({
-      where: { userID: id },
+      where: { userID: req.body.userID },
       data: {
-        firstName: newFirstName,
-        lastName: newLastName,
-        address: newAddress,
-        email: newEmail,
-        contactNo: newContactNo,
-        password: newPassword,
-        isAdmin: newIsAdmin,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        email: req.body.email,
+        contactNo: req.body.contactNo,
+        password: req.body.password,
+        isAdmin: req.body.isAdmin,
       },
     });
 
@@ -132,10 +123,25 @@ const patchUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const deletedUser = await prisma.user.delete({
+      where: { userID: req.body.userID },
+    });
+    res.json({ status: "ok", msg: "user deleted" });
+  } catch (error) {
+    console.error(error.message);
+    res.json({ status: "error", msg: "error deleting user" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 module.exports = {
   seedUsers,
   getUsers,
   putUsers,
   postOneUser,
   patchUser,
+  deleteUser,
 };

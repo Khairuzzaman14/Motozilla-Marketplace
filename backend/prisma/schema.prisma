@@ -20,29 +20,31 @@ model User {
   createdAt DateTime @default(now())
   password String
   isAdmin Boolean
-  items Items[]
+  itemsSold Item[] @relation("seller")
+  itemsBought Item[] @relation("buyer")
   }
 
-model Items {
+model Item {
   itemID Int @id @default(autoincrement())
   name String
+  type String
   description String
-  img_url String
+  imgUrl String
   isSold Boolean
-  sellerID String
-  buyerID String?
   price Int
-  dateTimeBought DateTime
-  dateTimeListed DateTime
-  user User @relation(fields: [userID], references: [userID])
-  userID String @unique
-  cart Cart @relation(fields: [cartID], references: [cartID])
+  dateTimeBought DateTime?
+  dateTimeListed DateTime @default(now())
+  seller User @relation("seller", fields: [sellerID], references: [userID])
+  sellerID String
+  buyer User? @relation("buyer", fields: [buyerID], references: [userID])
+  buyerID String?
+  cart Cart? @relation(fields: [cartID], references: [cartID])
   cartID Int
   }
 
 model Cart {
   cartID Int @id @default(autoincrement())
-  item Items[]
+  item Item[]
   itemID String
-  userID String @unique
+  userID String 
 }
