@@ -32,7 +32,7 @@ model Item {
   imgUrl String
   isSold Boolean
   price Int
-  dateTimeBought DateTime?
+  dateTimeBought DateTime? 
   dateTimeListed DateTime @default(now())
   seller User @relation("seller", fields: [sellerID], references: [userID])
   sellerID String

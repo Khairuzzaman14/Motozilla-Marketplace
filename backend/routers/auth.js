@@ -5,10 +5,10 @@ const {
   validateRegistrationData,
   validateLoginData,
 } = require("../validators/auth");
-// const checkValid = require("../middleware/checkValid");
+const checkValid = require("../middleware/checkValid");
 const { register, login } = require("../controllers/auth");
 
-router.put("/register", register);
-router.post("/login", login);
+router.put("/register", validateRegistrationData, checkValid, register);
+router.post("/login", validateLoginData, checkValid, login);
 
 module.exports = router;

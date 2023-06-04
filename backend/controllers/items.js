@@ -9,10 +9,9 @@ const items = [
     imgUrl:
       "https://www.revzilla.com/product_images/0209/5063/brembo_hp_brake_rotors_750x750.jpg",
     isSold: false,
-    sellerID: "eb236816-11bd-4f35-bc30-256eb724aa31",
+    sellerID: "18024f3c-eb32-4304-acc7-e45c15734582",
     price: 600,
     type: "Brakes",
-    userID: "8728f6d7-e3d4-4ee6-a592-50249341e32d",
   },
   {
     name: "SuperSprox Stealth Rear Sprocket",
@@ -21,10 +20,9 @@ const items = [
     imgUrl:
       "https://www.revzilla.com/product_images/0373/0975/super_sprox_stealth_rear_sprocket_off_road_750x750.jpg",
     isSold: false,
-    sellerID: "2eeeb691-ad07-4b50-9647-70061829da98",
+    sellerID: "13e64dc0-e229-42e6-a007-e9a1198685d5",
     price: 150,
     type: "Drive and transmission",
-    userID: "2eeeb691-ad07-4b50-9647-70061829da98",
   },
   {
     name: "Duraboost Lithium Ion Battery",
@@ -33,8 +31,8 @@ const items = [
     imgUrl:
       "https://www.revzilla.com/product_images/1800/2746/duraboost_lithium_ion_battery_750x750.jpg",
     isSold: true,
-    sellerID: "30baaa2b-bac5-4996-b359-8dedaf97c058",
-    buyerID: "eb236816-11bd-4f35-bc30-256eb724aa31",
+    sellerID: "635ae2c7-096d-40cb-842f-fa6e41297f22",
+    buyerID: "08c19da4-3bbb-405e-a99d-5fdc64274c55",
     price: 200,
     type: "Batteries",
   },
@@ -58,6 +56,99 @@ const seedItems = async (req, res) => {
   }
 };
 
+const getItems = async (req, res) => {
+  try {
+    const items = await prisma.item.findMany();
+
+    res.json(items);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "cannot get items" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+const putItems = async (req, res) => {
+  try {
+    await prisma.item.create({
+      data: {
+        name: req.body.name,
+        type: req.body.type,
+        description: req.body.description,
+        imgUrl: req.body.imgUrl,
+        isSold: req.body.isSold,
+        price: req.body.price,
+        sellerID: req.body.sellerID,
+      },
+    });
+    res.json({ status: "ok", message: "item created" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error creating item" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+const postOneItem = async (req, res) => {
+  try {
+    const item = await prisma.user.findUnique({
+      where: { itemID: req.body.itemID },
+    });
+
+    res.json(item);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting item" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+const patchItem = async (req, res) => {
+  try {
+    const updatedItem = await prisma.item.update({
+      where: { itemID: req.body.itemID },
+      data: {
+        name: req.body.name,
+        type: req.body.type,
+        description: req.body.description,
+        imgUrl: req.body.imgUrl,
+        isSold: req.body.isSold,
+        price: req.body.price,
+        sellerID: req.body.sellerID,
+      },
+    });
+
+    res.json(updatedItem);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error updating item" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+const deleteItem = async (req, res) => {
+  try {
+    const deletedItem = await prisma.item.delete({
+      where: { itemID: req.body.itemID },
+    });
+    res.json({ status: "ok", msg: "item deleted" });
+  } catch (error) {
+    console.error(error.message);
+    res.json({ status: "error", msg: "error deleting item" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 module.exports = {
   seedItems,
+  getItems,
+  putItems,
+  postOneItem,
+  patchItem,
+  deleteItem,
 };

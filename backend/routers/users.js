@@ -7,15 +7,20 @@ const {
   patchUser,
   deleteUser,
 } = require("../controllers/users");
-const { auth } = require("../middleware/auth");
+const { auth, adminAuth } = require("../middleware/auth");
 const checkValid = require("../middleware/checkValid");
+const {
+  validateInsertUserData,
+  validateUpdatedUserData,
+  validateDeleteUserData,
+} = require("../validators/users");
 const router = express.Router();
 
 router.get("/seedUsers", seedUsers);
-router.get("/users", checkValid, auth, getUsers);
-router.put("/users", putUsers);
+router.get("/users", auth, checkValid, getUsers);
+router.put("/users", adminAuth, validateInsertUserData, checkValid, putUsers);
 router.post("/users", postOneUser);
-router.patch("/users", patchUser);
-router.delete("/users", deleteUser);
+router.patch("/users", validateUpdatedUserData, checkValid, patchUser);
+router.delete("/users", validateDeleteUserData, checkValid, deleteUser);
 
 module.exports = router;
