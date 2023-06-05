@@ -39,12 +39,12 @@ model Item {
   buyer User? @relation("buyer", fields: [buyerID], references: [userID])
   buyerID String?
   cart Cart? @relation(fields: [cartID], references: [cartID])
-  cartID Int
+  cartID Int?
   }
 
 model Cart {
   cartID Int @id @default(autoincrement())
   item Item[]
-  itemID String
+  itemID Int?
   userID String 
 }

@@ -9,7 +9,11 @@ const items = [
     imgUrl:
       "https://www.revzilla.com/product_images/0209/5063/brembo_hp_brake_rotors_750x750.jpg",
     isSold: false,
-    sellerID: "18024f3c-eb32-4304-acc7-e45c15734582",
+    seller: {
+      connect: {
+        userID: "18024f3c-eb32-4304-acc7-e45c15734582",
+      },
+    },
     price: 600,
     type: "Brakes",
   },
@@ -20,7 +24,11 @@ const items = [
     imgUrl:
       "https://www.revzilla.com/product_images/0373/0975/super_sprox_stealth_rear_sprocket_off_road_750x750.jpg",
     isSold: false,
-    sellerID: "13e64dc0-e229-42e6-a007-e9a1198685d5",
+    seller: {
+      connect: {
+        userID: "13e64dc0-e229-42e6-a007-e9a1198685d5",
+      },
+    },
     price: 150,
     type: "Drive and transmission",
   },
@@ -31,8 +39,17 @@ const items = [
     imgUrl:
       "https://www.revzilla.com/product_images/1800/2746/duraboost_lithium_ion_battery_750x750.jpg",
     isSold: true,
-    sellerID: "635ae2c7-096d-40cb-842f-fa6e41297f22",
-    buyerID: "08c19da4-3bbb-405e-a99d-5fdc64274c55",
+    seller: {
+      connect: {
+        userID: "635ae2c7-096d-40cb-842f-fa6e41297f22",
+      },
+    },
+    buyer: {
+      connect: {
+        userID: "08c19da4-3bbb-405e-a99d-5fdc64274c55",
+      },
+    },
+
     price: 200,
     type: "Batteries",
   },
@@ -91,9 +108,29 @@ const putItems = async (req, res) => {
   }
 };
 
+const patchSoldItems = async (req, res) => {
+  try {
+    await prisma.item.update({
+      where: { itemID: req.param.itemID },
+      data: {
+        isSold: true,
+        dateTimeBought: req.body.dateTimeBought,
+        buyerID: req.body.buyerID,
+        cartID: req.body.cartID,
+      },
+    });
+    res.json({ status: "ok", message: "item sold" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error selling item" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 const postOneItem = async (req, res) => {
   try {
-    const item = await prisma.user.findUnique({
+    const item = await prisma.item.findUnique({
       where: { itemID: req.body.itemID },
     });
 
@@ -148,6 +185,7 @@ module.exports = {
   seedItems,
   getItems,
   putItems,
+  patchSoldItems,
   postOneItem,
   patchItem,
   deleteItem,

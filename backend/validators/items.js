@@ -46,18 +46,18 @@ const validateUpdatedItemData = [
       max: 50,
     }),
 
-  body("description", "must have a min of 1 and a max of 100 characters")
+  body("description", "must have a min of 1 and a max of 1000 characters")
     .optional()
     .isLength({
       min: 1,
-      max: 100,
+      max: 1000,
     }),
 
   body("price", "must have a min of 1 and a max of 10 characters")
     .optional()
     .isLength({
-      min: 8,
-      max: 8,
+      min: 1,
+      max: 10,
     }),
 ];
 

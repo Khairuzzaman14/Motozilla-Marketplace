@@ -1,6 +1,36 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+const carts = [
+  {
+    userID: "08c19da4-3bbb-405e-a99d-5fdc64274c55",
+  },
+  {
+    userID: "13e64dc0-e229-42e6-a007-e9a1198685d5",
+  },
+  {
+    userID: "18024f3c-eb32-4304-acc7-e45c15734582",
+  },
+];
+
+const seedCarts = async (req, res) => {
+  try {
+    await prisma.cart.deleteMany();
+
+    for (const cart of carts)
+      await prisma.cart.create({
+        data: cart,
+      });
+
+    res.json({ status: "ok", message: "Data seeded" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "seeding error" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 const getCarts = async (req, res) => {
   try {
     const carts = await prisma.cart.findMany();
@@ -9,6 +39,22 @@ const getCarts = async (req, res) => {
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "cannot get carts" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+const putCarts = async (req, res) => {
+  try {
+    await prisma.cart.create({
+      data: {
+        userID: req.body.userID,
+      },
+    });
+    res.json({ status: "ok", message: "cart saved" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error creating cart" });
   } finally {
     await prisma.$disconnect();
   }
@@ -29,6 +75,25 @@ const postOneCart = async (req, res) => {
   }
 };
 
+const patchCart = async (req, res) => {
+  try {
+    const updatedCart = await prisma.cart.update({
+      where: { cartID: req.body.cartID },
+      data: {
+        userID: req.body.userID,
+        itemID: req.body.itemID,
+      },
+    });
+
+    res.json(updatedCart);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error updating cart" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 const deleteCart = async (req, res) => {
   try {
     const deletedCart = await prisma.cart.delete({
@@ -44,7 +109,10 @@ const deleteCart = async (req, res) => {
 };
 
 module.exports = {
+  seedCarts,
   getCarts,
+  putCarts,
   postOneCart,
+  patchCart,
   deleteCart,
 };

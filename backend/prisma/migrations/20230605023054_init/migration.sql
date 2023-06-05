@@ -1,0 +1,8 @@
+-- DropForeignKey
+ALTER TABLE "Item" DROP CONSTRAINT "Item_cartID_fkey";
+
+-- AlterTable
+ALTER TABLE "Item" ALTER COLUMN "cartID" DROP NOT NULL;
+
+-- AddForeignKey
+ALTER TABLE "Item" ADD CONSTRAINT "Item_cartID_fkey" FOREIGN KEY ("cartID") REFERENCES "Cart"("cartID") ON DELETE SET NULL ON UPDATE CASCADE;
