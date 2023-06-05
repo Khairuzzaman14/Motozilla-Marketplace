@@ -3,35 +3,52 @@ import { fetchData } from "../helpers/common";
 
 const Registration = (props) => {
   const [roles, setRoles] = useState([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [address, setAddress] = useState("");
+  const [contactNo, setContactNo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const getRoles = async () => {
-    const { ok, data } = await fetchData("/roles");
-
-    if (ok) {
-      setRoles(data);
-    } else {
-      console.log(data);
-    }
+  const inputRef = React.useRef();
+  const handleContactNoChange = () => {
+    setContactNo(parseInt(inputRef.current.value));
   };
 
-  useEffect(() => {
-    getRoles();
-  }, []);
+  // const getRoles = async () => {
+  //   const { ok, data } = await fetchData("/roles");
+
+  //   if (ok) {
+  //     setRoles(data);
+  //   } else {
+  //     console.log(data);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getRoles();
+  // }, []);
 
   const registerUser = async () => {
     const { ok, data } = await fetchData("/auth/register", undefined, "PUT", {
+      firstName,
+      lastName,
+      address,
+      contactNo,
       email,
       password,
-      role,
+      isAdmin,
     });
 
     if (ok) {
+      setFirstName("");
+      setLastName("");
+      setAddress("");
+      setContactNo("");
       setEmail("");
       setPassword("");
-      setRole("");
+      setIsAdmin(false);
     } else {
       console.log(data);
     }
@@ -39,6 +56,57 @@ const Registration = (props) => {
   return (
     <>
       <br />
+      <div className="row">
+        <div className="col-md-4"></div>
+        <input
+          className="col-md-4"
+          placeholder="first name"
+          type="text"
+          value={firstName}
+          onChange={(e) => {
+            setFirstName(e.target.value);
+          }}
+        />
+        <div className="col-md-4"></div>
+      </div>
+      <div className="row">
+        <div className="col-md-4"></div>
+        <input
+          className="col-md-4"
+          placeholder="last name"
+          type="text"
+          value={lastName}
+          onChange={(e) => {
+            setLastName(e.target.value);
+          }}
+        />
+        <div className="col-md-4"></div>
+      </div>
+      <div className="row">
+        <div className="col-md-4"></div>
+        <input
+          className="col-md-4"
+          placeholder="address"
+          type="text"
+          value={address}
+          onChange={(e) => {
+            setAddress(e.target.value);
+          }}
+        />
+        <div className="col-md-4"></div>
+      </div>
+      <div className="row">
+        <div className="col-md-4"></div>
+        <input
+          className="col-md-4"
+          placeholder="contact no"
+          type="number"
+          value={contactNo}
+          ref={inputRef}
+          onChange={handleContactNoChange}
+        />
+        <div className="col-md-4"></div>
+      </div>
       <div className="row">
         <div className="col-md-4"></div>
         <input
@@ -65,7 +133,7 @@ const Registration = (props) => {
       </div>
       <div className="row">
         <div className="col-md-4"></div>
-        <select
+        {/* <select
           name="roles"
           id="roles"
           className="col-md-4"
@@ -78,7 +146,7 @@ const Registration = (props) => {
               {item}
             </option>
           ))}
-        </select>
+        </select> */}
         <div className="col-md-4"></div>
       </div>
       <div className="row">

@@ -24,7 +24,7 @@ const register = async (req, res) => {
         contactNo: req.body.contactNo,
         email: req.body.email,
         password: hash,
-        isAdmin: req.body.isAdmin || "user",
+        isAdmin: req.body.isAdmin,
       },
     });
 
