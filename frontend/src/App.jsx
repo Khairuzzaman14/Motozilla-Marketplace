@@ -3,6 +3,8 @@ import LoginPage from "./components/LoginPage";
 import UserContext from "./context/user";
 import HomePage from "./components/HomePage";
 import RegistrationPage from "./components/RegistrationPage";
+import NavBar from "./components/NavBar";
+import ItemPage from "./components/ItemPage";
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
@@ -14,7 +16,13 @@ function App() {
       <UserContext.Provider
         value={{ accessToken, setAccessToken, isAdmin, setIsAdmin }}
       >
-        {accessToken.length > 0 && <HomePage />}
+        {accessToken.length > 0 && (
+          <>
+            <NavBar />
+            {/* <HomePage /> */}
+            <ItemPage />
+          </>
+        )}
         {accessToken.length === 0 && showLogin && (
           <LoginPage setShowLogin={setShowLogin} />
         )}

@@ -110,13 +110,14 @@ const putItems = async (req, res) => {
 
 const patchSoldItems = async (req, res) => {
   try {
+    // check if itemId is sold
     await prisma.item.update({
       where: { itemID: req.param.itemID },
       data: {
         isSold: true,
-        dateTimeBought: req.body.dateTimeBought,
         buyerID: req.body.buyerID,
-        cartID: req.body.cartID,
+        dateTimeBought: now(),
+        // cartID: req.body.cartID,
       },
     });
     res.json({ status: "ok", message: "item sold" });

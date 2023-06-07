@@ -1,0 +1,44 @@
+.header {
+  height: 80px;
+  background-color: lightblue;
+  padding: 10px;
+  flex-direction: row;
+  display: flex;
+  /* gap: 18px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.appName {
+  /* display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; */
+
+  width: 30px;
+  /* height: 30px; */
+
+  color: red;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.avatar {
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.cart {
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}

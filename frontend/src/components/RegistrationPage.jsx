@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { fetchData } from "../helpers/common";
 
 const Registration = (props) => {
-  const [roles, setRoles] = useState([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
@@ -15,20 +14,6 @@ const Registration = (props) => {
   const handleContactNoChange = () => {
     setContactNo(parseInt(inputRef.current.value));
   };
-
-  // const getRoles = async () => {
-  //   const { ok, data } = await fetchData("/roles");
-
-  //   if (ok) {
-  //     setRoles(data);
-  //   } else {
-  //     console.log(data);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getRoles();
-  // }, []);
 
   const registerUser = async () => {
     const { ok, data } = await fetchData("/auth/register", undefined, "PUT", {
