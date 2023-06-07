@@ -48,32 +48,34 @@ const HomePage = (props) => {
   }, []);
 
   return (
-    <div>
-      <div> HomePage</div>
+    <>
+      <div>
+        <div> HomePage</div>
 
-      <div className="row">
-        <div className="col-md-2">Name</div>
-        <div className="col-md-2">Type</div>
-        <div className="col-md-5">Description</div>
-        <div className="col-md-2">Price($)</div>
-        <div className="col-md-2"></div>
+        <div className="row">
+          <div className="col-md-2">Name</div>
+          <div className="col-md-2">Type</div>
+          <div className="col-md-5">Description</div>
+          <div className="col-md-2">Price($)</div>
+          <div className="col-md-2"></div>
+        </div>
+        {items.map((item) => {
+          return (
+            <HomePageItems
+              key={item.itemID}
+              itemID={item.itemID}
+              name={item.name}
+              type={item.type}
+              description={item.description}
+              sellerID={item.sellerID}
+              price={item.price}
+              imgUrl={item.imgUrl}
+              getItems={getItems}
+            />
+          );
+        })}
       </div>
-      {items.map((item) => {
-        return (
-          <HomePageItems
-            key={item.itemID}
-            itemID={item.itemID}
-            name={item.name}
-            type={item.type}
-            description={item.description}
-            sellerID={item.sellerID}
-            price={item.price}
-            imgUrl={item.imgUrl}
-            getItems={getItems}
-          />
-        );
-      })}
-    </div>
+    </>
   );
 };
 

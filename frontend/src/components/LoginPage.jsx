@@ -5,6 +5,7 @@ import UserContext from "../context/user";
 
 const LoginPage = (props) => {
   const userCtx = useContext(UserContext);
+  // const [user, setUser] = useState("");
   const [email, setEmail] = useState("kzamanwar@gmail.com");
   const [password, setPassword] = useState("password");
 
@@ -18,7 +19,7 @@ const LoginPage = (props) => {
       userCtx.setAccessToken(data.access);
       const decoded = jwt_decode(data.access);
       console.log(decoded);
-      userCtx.setIsAdmin(decoded.role);
+      // set the userId into context
     } else {
       console.log(data);
     }

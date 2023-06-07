@@ -13,8 +13,6 @@
 
   height: 300px;
 
-  /* M3/ref/primary/primary90 */
-
   background: #ccdfe5;
 }
 
@@ -22,13 +20,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* padding: 0px;
-  gap: 8px; */
-
-  /* width: 235px;
-  height: 96px; */
-
-  /* Inside auto layout */
 
   flex: none;
   order: 1;
@@ -39,76 +30,66 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
 
-  /* width: 66px;
-  height: 44px; */
-
-  /* Inside auto layout */
-
-  flex: none;
+  /* flex: none;
   order: 0;
-  flex-grow: 0;
+  flex-grow: 0; */
 }
 
-.ItemName .Price .Type .Seller {
-  /* width: 47px;
-  height: 20px; */
+.ItemName,
+.Price,
+.Type,
+.Seller,
+.Description {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 20px;
 
-  /* M3/body/medium */
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+  padding: 5px;
+
+  /* flex: none;
+  order: 0;
+  flex-grow: 0; */
+}
+
+.ItemName2,
+.Price2,
+.Type2,
+.Seller2,
+.Description2 {
+  /* width: 66px;
+  height: 24px; */
 
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  /* identical to box height, or 143% */
-
-  display: flex;
-  align-items: center;
-
-  color: #000000;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-.ItemName2 .Price2 .Type2 .Seller2 {
-  width: 66px;
-  height: 24px;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 24px;
-  /* identical to box height, or 150% */
 
   display: flex;
   align-items: center;
 
   color: #000000;
+  padding: 5px;
 
-  /* Inside auto layout */
-
-  flex: none;
+  /* flex: none;
   order: 1;
-  flex-grow: 0;
+  flex-grow: 0; */
 }
 
 .DescriptionBox {
-  /* display: flex; */
   flex-direction: row;
-  /* align-items: flex-end; */
+
   padding: 24px;
   gap: 32px;
 
   height: 400px;
-
-  /* M3/ref/primary/primary90 */
 
   background: #ccdfe5;
 }
