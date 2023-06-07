@@ -53,8 +53,10 @@ const login = async (req, res) => {
     }
 
     const payload = {
+      // this data is decoded in front end for components to read
       email: auth.email,
       isAdmin: auth.isAdmin,
+      // put the userId in
     };
 
     const access = jwt.sign(payload, process.env.ACCESS_SECRET, {

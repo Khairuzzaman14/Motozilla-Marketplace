@@ -22,6 +22,7 @@ model User {
   isAdmin Boolean
   itemsSold Item[] @relation("seller")
   itemsBought Item[] @relation("buyer")
+  cart Cart?
   }
 
 model Item {
@@ -38,15 +39,13 @@ model Item {
   sellerID String
   buyer User? @relation("buyer", fields: [buyerID], references: [userID])
   buyerID String?
-  // cart Cart? @relation(fields: [cartID], references: [cartID])
-  // cartID Int?
+  cart Cart? @relation(fields: [cartID], references: [cartID])
+  cartID Int?
   }
 
 model Cart {
-  // cartID Int @id @default(autoincrement())
-  // item Item[]
-  itemID Int 
-  userID String 
-
-  @@unique([itemID,userID])
+  cartID Int @id @default(autoincrement())
+  items Item[]
+  user  User @relation(fields: [userID], references: [userID])
+  userID String @unique
 }

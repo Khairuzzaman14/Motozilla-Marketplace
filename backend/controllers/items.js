@@ -11,7 +11,7 @@ const items = [
     isSold: false,
     seller: {
       connect: {
-        userID: "18024f3c-eb32-4304-acc7-e45c15734582",
+        userID: "9b04ce1b-d73c-413e-a06c-e37b4d01d5de",
       },
     },
     price: 600,
@@ -26,7 +26,7 @@ const items = [
     isSold: false,
     seller: {
       connect: {
-        userID: "13e64dc0-e229-42e6-a007-e9a1198685d5",
+        userID: "9b04ce1b-d73c-413e-a06c-e37b4d01d5de",
       },
     },
     price: 150,
@@ -41,12 +41,13 @@ const items = [
     isSold: true,
     seller: {
       connect: {
-        userID: "635ae2c7-096d-40cb-842f-fa6e41297f22",
+        userID: "9b04ce1b-d73c-413e-a06c-e37b4d01d5de",
       },
     },
     buyer: {
       connect: {
-        userID: "08c19da4-3bbb-405e-a99d-5fdc64274c55",
+        userID: "3174748b-429f-44cc-aa4e-35df120e626d",
+        // matthew buyer
       },
     },
 

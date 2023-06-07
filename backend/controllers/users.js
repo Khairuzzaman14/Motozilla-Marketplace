@@ -10,6 +10,9 @@ const users = [
     contactNo: 98765432,
     password: "password",
     isAdmin: false,
+    cart: {
+      create: {},
+    },
   },
   {
     firstName: "Muhammad",
@@ -19,6 +22,9 @@ const users = [
     contactNo: 98126789,
     password: "password",
     isAdmin: false,
+    cart: {
+      create: {},
+    },
   },
   {
     firstName: "Joseph",
@@ -28,6 +34,9 @@ const users = [
     contactNo: 90129876,
     password: "password",
     isAdmin: false,
+    cart: {
+      create: {},
+    },
   },
 ];
 
