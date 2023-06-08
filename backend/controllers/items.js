@@ -98,7 +98,6 @@ const getItems = async (req, res) => {
 
 const putItems = async (req, res) => {
   try {
-    console.log(req.body);
     await prisma.item.create({
       data: {
         name: req.body.name,
@@ -121,9 +120,7 @@ const putItems = async (req, res) => {
 
 const patchBoughtItems = async (req, res) => {
   try {
-    // check if itemId is sold
     await prisma.item.updateMany({
-      // isSold = true, buyerID,dateTimeBought,removeFromCart
       where: {
         cartID: req.body.cartID,
       },
@@ -133,7 +130,6 @@ const patchBoughtItems = async (req, res) => {
         buyerID: req.body.buyerID,
         dateTimeBought: prisma.now,
         cartID: null,
-        // cartID: req.body.cartID,
       },
     });
     res.json({ status: "ok", message: "item bought" });
@@ -232,6 +228,38 @@ const getItemsFromCart = async (req, res) => {
     await prisma.$disconnect();
   }
 };
+const postSellerItem = async (req, res) => {
+  try {
+    const item = await prisma.item.findMany({
+      where: {
+        sellerID: req.body.sellerID,
+      },
+    });
+
+    res.json(item);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting item" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+const postBuyerItem = async (req, res) => {
+  try {
+    const item = await prisma.item.findMany({
+      where: {
+        buyerID: req.body.buyerID,
+      },
+    });
+
+    res.json(item);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting item" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
 
 module.exports = {
   seedItems,
@@ -243,4 +271,6 @@ module.exports = {
   deleteItem,
   getItemsFromCart,
   deleteItemFromCart,
+  postSellerItem,
+  postBuyerItem,
 };

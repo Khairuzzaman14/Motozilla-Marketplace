@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 
 const HomePageItems = (props) => {
   const userCtx = useContext(UserContext);
+  if (userCtx.accessToken.length == 0) {
+    return <Navigate to="/" replace />;
+  }
 
   const addItemToCart = async () => {
     // update cart with item in database
@@ -36,8 +39,8 @@ const HomePageItems = (props) => {
       <div className="col-sm-5">{props.description}</div>
       <div className="col-sm-2">{props.price}</div>
       <img className={styles.photo} src={props.imgUrl} />
-      <Link to={`/home/${props.itemID}`}>
-        <button className="col-sm-1">view</button>
+      <Link to={`/home/${props.itemID}`} className="col-sm-1">
+        <button className="col-sm-12">view</button>
       </Link>
       <button className="col-sm-1" onClick={() => addItemToCart()}>
         add to cart

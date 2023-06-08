@@ -119,20 +119,6 @@ const Registration = (props) => {
       </div>
       <div className="row">
         <div className="col-md-4"></div>
-        {/* <select
-          name="roles"
-          id="roles"
-          className="col-md-4"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-        >
-          <option value="none">please select</option>
-          {roles.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </select> */}
         <div className="col-md-4"></div>
       </div>
       <div className="row">
@@ -145,10 +131,8 @@ const Registration = (props) => {
       <br />
       <div className="row">
         <div className="col-md-4"></div>
-        <Link to="/">
-          <button className="col-md-4" type="submit">
-            go to login screen
-          </button>
+        <Link to="/" className="col-md-4">
+          Login
         </Link>
         <div className="col-md-4"></div>
       </div>

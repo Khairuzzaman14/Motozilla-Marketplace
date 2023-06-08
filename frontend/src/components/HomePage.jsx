@@ -7,11 +7,6 @@ import UserContext from "../context/user";
 const HomePage = (props) => {
   const userCtx = useContext(UserContext);
   const [items, setItems] = useState([]);
-  const nameRef = useRef();
-  const typeRef = useRef();
-  const descriptionRef = useRef();
-  const imgUrlRef = useRef();
-  const priceRef = useRef();
 
   if (userCtx.accessToken.length == 0) {
     return <Navigate to="/" replace />;
@@ -28,27 +23,6 @@ const HomePage = (props) => {
       setItems(data);
     } else {
       console.log("get items", data);
-    }
-  };
-
-  const addItems = async () => {
-    const { ok, data } = await fetchData("/project/items", undefined, "PUT", {
-      name: nameRef.current.value,
-      type: typeRef.current.value,
-      description: descriptionRef.current.value,
-      imgUrl: imgUrlRef.current.value,
-      isSold: false,
-      price: priceRef.current.value,
-      sellerID: userCtx.sellerID,
-    });
-  };
-
-  const deleteItem = async () => {
-    const { ok, data } = await fetchData("project/items", undefined, "DELETE");
-    if (ok) {
-      getItems();
-    } else {
-      console.log(data);
     }
   };
 

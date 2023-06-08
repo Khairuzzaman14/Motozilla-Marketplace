@@ -5,6 +5,9 @@ import { fetchData } from "../helpers/common";
 
 const CartPageItems = (props) => {
   const userCtx = useContext(UserContext);
+  if (userCtx.accessToken.length == 0) {
+    return <Navigate to="/" replace />;
+  }
 
   const delItemFromCart = async () => {
     // update cart with item in database

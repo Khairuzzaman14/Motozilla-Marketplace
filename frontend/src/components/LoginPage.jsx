@@ -27,8 +27,6 @@ const LoginPage = (props) => {
       userCtx.setLastName(decoded.lastName);
       userCtx.setEmail(decoded.email);
       navigate("/home");
-
-      // set the userId into context
     } else {
       console.log(data);
     }
@@ -71,10 +69,8 @@ const LoginPage = (props) => {
       <br />
       <div className="row">
         <div className="col-md-4"></div>
-        <Link to="/registration">
-          <button className="col-md-4" type="submit">
-            go to registion screen
-          </button>
+        <Link to="/registration" className="col-md-4">
+          Register
         </Link>
         <div className="col-md-4"></div>
       </div>
