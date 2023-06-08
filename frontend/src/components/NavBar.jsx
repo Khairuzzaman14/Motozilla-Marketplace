@@ -10,9 +10,13 @@ const NavBar = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.appName}>Motozilla Marketplace</div>
+      <Link to="/home">
+        <div className={styles.appName}>Motozilla Marketplace</div>
+      </Link>
       <div className={styles.avatar}>
-        <Avatar sx={{ width: 50, height: 50 }} />
+        <Link to="/profile">
+          <Avatar sx={{ width: 50, height: 50 }} />
+        </Link>
       </div>
       <div className={styles.cart}>
         <Link to={`/cart/${userCtx.cartID}`}>

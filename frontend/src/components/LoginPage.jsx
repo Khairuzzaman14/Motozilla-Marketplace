@@ -23,6 +23,9 @@ const LoginPage = (props) => {
       console.log("decoded data", decoded);
       userCtx.setUserID(decoded.userID);
       userCtx.setCartID(decoded.cartID);
+      userCtx.setFirstName(decoded.firstName);
+      userCtx.setLastName(decoded.lastName);
+      userCtx.setEmail(decoded.email);
       navigate("/home");
 
       // set the userId into context

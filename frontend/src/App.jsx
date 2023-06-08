@@ -16,10 +16,17 @@ function App() {
   const [showLogin, setShowLogin] = useState(true);
   const [userID, setUserID] = useState("");
   const [cartID, setCartID] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
 
   return (
     <UserContext.Provider
       value={{
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
         userID,
         setUserID,
         accessToken,
@@ -28,6 +35,8 @@ function App() {
         setIsAdmin,
         cartID,
         setCartID,
+        email,
+        setEmail,
       }}
     >
       <div className="container">

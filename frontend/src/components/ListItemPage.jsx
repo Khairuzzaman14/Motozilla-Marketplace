@@ -18,47 +18,35 @@ const ListItemPage = (props) => {
       description: descriptionRef.current.value,
       imgUrl: imgUrlRef.current.value,
       isSold: false,
-      price: priceRef.current.value,
-      sellerID: userCtx.sellerID,
+      price: Number(priceRef.current.value),
+      sellerID: userCtx.userID,
     });
+    alert("Item created");
   };
 
   return (
     <>
       <div className={styles.ItemDisplay}>
-        {/* <div className={styles.img}> */}
-        {/* <img src={item.imgUrl} style={{ width: 250, height: 250 }} /> */}
-        {/* </div> */}
-
         <div className={styles.ItemDetails}>
           <div className={styles.ItemBox}>
             <div className={styles.ItemName}>Item Name:</div>
-            <Input ref={nameRef}></Input>
-            {/* <div className={styles.ItemName2}>{item.name}</div> */}
+            <Input inputRef={nameRef}></Input>
             <div className={styles.Price}>Price:</div>
-            <Input ref={priceRef}></Input>
-            {/* <div className={styles.Price2}>${item.price}</div> */}
+            <Input inputRef={priceRef}></Input>
             <div className={styles.Type}>Type:</div>
-            <Input ref={typeRef}></Input>
-            {/* <div className={styles.Type2}>{item.type}</div> */}
-            <div className={styles.Seller}>Seller:</div>
-            <Input multiline placeholder={userCtx.firstName}>
-              {userCtx.firstName}
-              {userCtx.lastName}
-            </Input>
-            {/* <div className={styles.Seller2}>{item.sellerID}</div> */}
+            <Input inputRef={typeRef}></Input>
           </div>
         </div>
       </div>
       <div>
         <div className={styles.DescriptionBox}>
           <div className={styles.Description}>Description:</div>
-          {/* <div className={styles.Description2}>{item.description}</div> */}
-          <Input multiline ref={descriptionRef}></Input>
+
+          <Input multiline inputRef={descriptionRef}></Input>
           <br />
           <br />
           <div className={styles.ItemName}>Image Url:</div>
-          <Input ref={imgUrlRef}></Input>
+          <Input inputRef={imgUrlRef}></Input>
           <br />
           <br />
           <button className="col-sm-1" onClick={addItems}>

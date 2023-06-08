@@ -65,6 +65,8 @@ const login = async (req, res) => {
       isAdmin: auth.isAdmin,
       cartID: userCart.cartID,
       userID: auth.userID,
+      firstName: auth.firstName,
+      lastName: auth.lastName,
     };
 
     const access = jwt.sign(payload, process.env.ACCESS_SECRET, {

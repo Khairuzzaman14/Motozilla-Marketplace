@@ -98,6 +98,7 @@ const getItems = async (req, res) => {
 
 const putItems = async (req, res) => {
   try {
+    console.log(req.body);
     await prisma.item.create({
       data: {
         name: req.body.name,
