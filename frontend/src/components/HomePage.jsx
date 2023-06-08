@@ -12,7 +12,6 @@ const HomePage = (props) => {
   const descriptionRef = useRef();
   const imgUrlRef = useRef();
   const priceRef = useRef();
-  // const sellerID = useRef();
 
   if (userCtx.accessToken.length == 0) {
     return <Navigate to="/" replace />;

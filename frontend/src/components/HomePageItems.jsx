@@ -22,7 +22,7 @@ const HomePageItems = (props) => {
 
     if (ok) {
       alert("Item added to cart");
-      //   SetCart(data);
+
       console.log(ok);
     } else {
       console.log(data);
@@ -39,7 +39,6 @@ const HomePageItems = (props) => {
       <Link to={`/home/${props.itemID}`}>
         <button className="col-sm-1">view</button>
       </Link>
-      {/* link react router */}
       <button className="col-sm-1" onClick={() => addItemToCart()}>
         add to cart
       </button>

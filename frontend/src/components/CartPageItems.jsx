@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
+import UserContext from "../context/user";
 import styles from "./CartPageItems.module.css";
+import { fetchData } from "../helpers/common";
 
 const CartPageItems = (props) => {
+  const userCtx = useContext(UserContext);
+
+  const delItemFromCart = async () => {
+    // update cart with item in database
+    const body = {
+      itemID: props.itemID,
+    };
+    const { ok, data } = await fetchData(
+      `/project/items/${userCtx.cartID}`,
+      undefined,
+      "PATCH",
+      body
+    );
+
+    if (ok) {
+      alert("Item removed from cart");
+      props.onDelete();
+      console.log(ok);
+    } else {
+      console.log(data);
+    }
+  };
   return (
     <>
       <div className={styles.ItemDisplay}>
-        {/* <div className={styles.img}> */}
         <img src={props.item.imgUrl} style={{ width: 250, height: 250 }} />
-        {/* </div> */}
 
         <div className={styles.ItemDetails}>
           <div className={styles.ItemBox}>
@@ -29,7 +51,9 @@ const CartPageItems = (props) => {
           <br />
           <br />
           <br />
-          <button className="col-sm-1">Delete from cart</button>
+          <button className="col-sm-1" onClick={() => delItemFromCart()}>
+            Delete from cart
+          </button>
         </div>
       </div>
     </>

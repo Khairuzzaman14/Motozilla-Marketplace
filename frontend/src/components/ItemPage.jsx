@@ -4,11 +4,11 @@ import styles from "./ItemPage.module.css";
 import { useParams, Navigate } from "react-router-dom";
 import UserContext from "../context/user";
 
-const ItemPage = (props) => {
+const ItemPage = () => {
   const userCtx = useContext(UserContext);
 
   const [item, setItem] = useState({});
-  //   const itemRef = useRef();
+
   const params = useParams();
   if (userCtx.accessToken.length == 0) {
     return <Navigate to="/" replace />;

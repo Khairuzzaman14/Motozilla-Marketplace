@@ -11,22 +11,7 @@ const CartPage = () => {
   if (userCtx.accessToken.length == 0) {
     return <Navigate to="/" replace />;
   }
-  //   const addingItemToCart = async () => {
-  //     const { ok, data } = await fetchData("/project/carts", undefined, "PATCH", {
-  //       userID: userCtx.userID,
-  //       //   itemID:
-  //     });
 
-  //     if (ok) {
-  //       SetCart(data);
-  //     } else {
-  //       console.log(data);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     addingItemToCart();
-  //   }, []);
   const getItemsFromCart = async () => {
     const { ok, data } = await fetchData(
       `/project/items/${userCtx.cartID}`,
@@ -40,6 +25,28 @@ const CartPage = () => {
       console.log(data);
     }
   };
+
+  const confirmBuyItemFromCart = async () => {
+    // update cart with item in database
+    const body = {
+      cartID: userCtx.cartID,
+      buyerID: userCtx.userID,
+    };
+    const { ok, data } = await fetchData(
+      "/project/items",
+      undefined,
+      "PATCH",
+      body
+    );
+
+    if (ok) {
+      alert("Item sold");
+      getItemsFromCart();
+      console.log(ok);
+    } else {
+      console.log(data);
+    }
+  };
   useEffect(() => {
     getItemsFromCart();
   }, []);
@@ -47,9 +54,18 @@ const CartPage = () => {
     <div>
       <div>My Cart</div>
       {cart.map((item) => {
-        return <CartPageItems key={item.itemID} item={item} />;
+        return (
+          <CartPageItems
+            key={item.itemID}
+            item={item}
+            itemID={item.itemID}
+            onDelete={getItemsFromCart}
+          />
+        );
       })}
-      <button className="col-sm-1">Confirm</button>
+      <button className="col-sm-1" onClick={() => confirmBuyItemFromCart()}>
+        Confirm
+      </button>
     </div>
   );
 };

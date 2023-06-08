@@ -6,8 +6,10 @@ const {
   postOneItem,
   patchItem,
   deleteItem,
-  patchSoldItems,
+
   getItemsFromCart,
+  deleteItemFromCart,
+  patchBoughtItems,
 } = require("../controllers/items");
 const {
   validateInsertItemData,
@@ -21,10 +23,11 @@ const router = express.Router();
 router.get("/seedItems", seedItems);
 router.get("/items/:userID", getItems);
 router.put("/items", validateInsertItemData, checkValid, putItems);
-router.patch("/items/:id", patchSoldItems);
+
 router.post("/items", postOneItem);
-router.patch("/items", validateUpdatedItemData, checkValid, patchItem);
+// router.patch("/items", validateUpdatedItemData, checkValid, patchItem);
 router.delete("/items", validateDeleteItemData, checkValid, deleteItem);
 router.post("/items/:cartID", getItemsFromCart);
-
+router.patch("/items/:cartID", deleteItemFromCart);
+router.patch("/items", patchBoughtItems);
 module.exports = router;

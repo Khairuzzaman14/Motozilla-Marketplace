@@ -11,7 +11,7 @@ const items = [
     isSold: false,
     seller: {
       connect: {
-        userID: "71cdf164-1044-4830-bd26-9cb3f9a2244c",
+        userID: "572c1101-87e6-4aea-a892-3999439fdadd",
       },
     },
     price: 600,
@@ -26,7 +26,7 @@ const items = [
     isSold: false,
     seller: {
       connect: {
-        userID: "71cdf164-1044-4830-bd26-9cb3f9a2244c",
+        userID: "572c1101-87e6-4aea-a892-3999439fdadd",
       },
     },
     price: 150,
@@ -83,6 +83,7 @@ const getItems = async (req, res) => {
         sellerID: {
           not: userID,
         },
+        buyerID: null,
       },
     });
 
@@ -117,22 +118,27 @@ const putItems = async (req, res) => {
   }
 };
 
-const patchSoldItems = async (req, res) => {
+const patchBoughtItems = async (req, res) => {
   try {
     // check if itemId is sold
-    await prisma.item.update({
-      where: { itemID: req.param.itemID },
+    await prisma.item.updateMany({
+      // isSold = true, buyerID,dateTimeBought,removeFromCart
+      where: {
+        cartID: req.body.cartID,
+      },
+
       data: {
         isSold: true,
         buyerID: req.body.buyerID,
-        dateTimeBought: now(),
+        dateTimeBought: prisma.now,
+        cartID: null,
         // cartID: req.body.cartID,
       },
     });
-    res.json({ status: "ok", message: "item sold" });
+    res.json({ status: "ok", message: "item bought" });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error selling item" });
+    res.status(400).json({ status: "error", msg: "error buying item" });
   } finally {
     await prisma.$disconnect();
   }
@@ -190,6 +196,26 @@ const deleteItem = async (req, res) => {
     await prisma.$disconnect();
   }
 };
+const deleteItemFromCart = async (req, res) => {
+  try {
+    const deletedItem = await prisma.item.update({
+      where: {
+        itemID: req.body.itemID,
+      },
+      data: {
+        cart: {
+          disconnect: true,
+        },
+      },
+    });
+    res.json({ status: "ok", msg: "item removed from cart" });
+  } catch (error) {
+    console.error(error.message);
+    res.json({ status: "error", msg: "error deleting item" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
 
 const getItemsFromCart = async (req, res) => {
   try {
@@ -210,9 +236,10 @@ module.exports = {
   seedItems,
   getItems,
   putItems,
-  patchSoldItems,
+  patchBoughtItems,
   postOneItem,
   patchItem,
   deleteItem,
   getItemsFromCart,
+  deleteItemFromCart,
 };
