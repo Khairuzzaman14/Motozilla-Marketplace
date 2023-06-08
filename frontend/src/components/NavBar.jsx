@@ -4,6 +4,7 @@ import { Avatar } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
 import UserContext from "../context/user";
+import avatar from "./MM93.webp";
 
 const NavBar = () => {
   const userCtx = useContext(UserContext);
@@ -13,16 +14,20 @@ const NavBar = () => {
       <Link to="/home">
         <div className={styles.appName}>Motozilla Marketplace</div>
       </Link>
-      <div className={styles.avatar}>
-        <Link to="/profile">
-          <Avatar sx={{ width: 50, height: 50 }} />
-        </Link>
-      </div>
-      <div className={styles.cart}>
-        <Link to={`/cart/${userCtx.cartID}`}>
-          <ShoppingCartIcon sx={{ width: 30, height: 30 }} />
-        </Link>
-      </div>
+      {userCtx.accessToken.length > 0 && (
+        <div className={styles.avatar}>
+          <Link to="/profile">
+            <Avatar sx={{ width: 50, height: 50 }} src={avatar} />
+          </Link>
+        </div>
+      )}
+      {userCtx.accessToken.length > 0 && (
+        <div className={styles.cart}>
+          <Link to={`/cart/${userCtx.cartID}`}>
+            <ShoppingCartIcon sx={{ width: 30, height: 30 }} />
+          </Link>
+        </div>
+      )}
     </header>
   );
 };

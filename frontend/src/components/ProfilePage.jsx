@@ -4,6 +4,7 @@ import UserContext from "../context/user";
 import { Avatar } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import { fetchData } from "../helpers/common";
+import avatar from "./MM93.webp";
 
 const ProfilePage = () => {
   const userCtx = useContext(UserContext);
@@ -77,7 +78,7 @@ const ProfilePage = () => {
   return (
     <>
       <div className={styles.ItemDisplay}>
-        <Avatar style={{ width: 250, height: 250 }} />
+        <Avatar style={{ width: 250, height: 250 }} src={avatar} />
 
         <div className={styles.ItemDetails}>
           <div className={styles.ItemBox}>
