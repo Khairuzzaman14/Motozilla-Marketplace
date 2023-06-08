@@ -74,9 +74,11 @@ const ItemPage = () => {
           <br />
           <br />
           <br />
-          <button className="col-sm-1" onClick={() => addItemToCart()}>
-            Add to cart
-          </button>
+          {item.sellerID !== userCtx.userID && !item.buyerID && (
+            <button className="col-sm-1" onClick={() => addItemToCart()}>
+              Add to cart
+            </button>
+          )}
         </div>
       </div>
     </>
