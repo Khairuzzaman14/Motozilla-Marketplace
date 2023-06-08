@@ -2,13 +2,15 @@ import React, { useContext, useState, useEffect } from "react";
 import { fetchData } from "../helpers/common";
 import UserContext from "../context/user";
 import CartPageItems from "./CartPageItems";
+import { Navigate } from "react-router-dom";
 
 const CartPage = () => {
+  const userCtx = useContext(UserContext);
+  const [cart, setCart] = useState([]);
+
   if (userCtx.accessToken.length == 0) {
     return <Navigate to="/" replace />;
   }
-  const userCtx = useContext(UserContext);
-  const [cart, setCart] = useState([]);
   //   const addingItemToCart = async () => {
   //     const { ok, data } = await fetchData("/project/carts", undefined, "PATCH", {
   //       userID: userCtx.userID,
