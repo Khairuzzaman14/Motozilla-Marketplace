@@ -1,0 +1,95 @@
+.img {
+  height: 10x;
+  width: 10px;
+  /* mix-blend-mode: color-burn; */
+}
+
+.ItemDisplay {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding: 24px;
+  gap: 32px;
+
+  height: 300px;
+
+  background: #ccdfe5;
+}
+
+.ItemDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+}
+
+.ItemBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  /* flex: none;
+    order: 0;
+    flex-grow: 0; */
+}
+
+.ItemName,
+.Price,
+.Type,
+.Seller,
+.Description {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 20px;
+
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+  padding: 5px;
+
+  /* flex: none;
+    order: 0;
+    flex-grow: 0; */
+}
+
+.ItemName2,
+.Price2,
+.Type2,
+.Seller2,
+.Description2 {
+  /* width: 66px;
+    height: 24px; */
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+  padding: 5px;
+
+  /* flex: none;
+    order: 1;
+    flex-grow: 0; */
+}
+
+.DescriptionBox {
+  flex-direction: row;
+
+  padding: 24px;
+  gap: 32px;
+
+  height: 400px;
+
+  background: #ccdfe5;
+}

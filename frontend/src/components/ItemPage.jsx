@@ -1,13 +1,24 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { fetchData } from "../helpers/common";
 import styles from "./ItemPage.module.css";
+import { useParams, Navigate } from "react-router-dom";
+import UserContext from "../context/user";
 
 const ItemPage = (props) => {
+  const userCtx = useContext(UserContext);
+
   const [item, setItem] = useState({});
   //   const itemRef = useRef();
+  const params = useParams();
+  if (userCtx.accessToken.length == 0) {
+    return <Navigate to="/" replace />;
+  }
   const getOneItem = async () => {
+    console.log("params itemID value", params.itemID);
     const { ok, data } = await fetchData("/project/items", undefined, "POST", {
-      itemID: 18,
+      itemID: parseInt(params.itemID),
+
+      // useParams => params.itemID after you define the dynamic Route
     });
 
     if (ok) {
@@ -46,7 +57,7 @@ const ItemPage = (props) => {
           <br />
           <br />
           <br />
-          <button className="col-sm-1">Buy Item</button>
+          <button className="col-sm-1">Add to cart</button>
         </div>
       </div>
     </>

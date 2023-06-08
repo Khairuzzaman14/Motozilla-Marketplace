@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { fetchData } from "../helpers/common";
 import HomePageItems from "./HomePageItems";
+import { Navigate } from "react-router-dom";
+import UserContext from "../context/user";
 
 const HomePage = (props) => {
-  // const userCtx = useContext(UserContext);
+  const userCtx = useContext(UserContext);
   const [items, setItems] = useState([]);
   const nameRef = useRef();
   const typeRef = useRef();
@@ -12,13 +14,21 @@ const HomePage = (props) => {
   const priceRef = useRef();
   // const sellerID = useRef();
 
+  if (userCtx.accessToken.length == 0) {
+    return <Navigate to="/" replace />;
+  }
+
   const getItems = async () => {
-    const { ok, data } = await fetchData("/project/items", undefined, "GET");
+    const { ok, data } = await fetchData(
+      `/project/items/${userCtx.userID}`,
+      undefined,
+      "GET"
+    );
 
     if (ok) {
       setItems(data);
     } else {
-      console.log(data);
+      console.log("get items", data);
     }
   };
 

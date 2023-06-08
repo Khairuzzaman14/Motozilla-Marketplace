@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchData } from "../helpers/common";
+import { Link } from "react-router-dom";
 
 const Registration = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -144,13 +145,11 @@ const Registration = (props) => {
       <br />
       <div className="row">
         <div className="col-md-4"></div>
-        <button
-          className="col-md-4"
-          type="submit"
-          onClick={() => props.setShowLogin(true)}
-        >
-          go to login screen
-        </button>
+        <Link to="/">
+          <button className="col-md-4" type="submit">
+            go to login screen
+          </button>
+        </Link>
         <div className="col-md-4"></div>
       </div>
     </>

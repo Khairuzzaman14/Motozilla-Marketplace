@@ -11,7 +11,7 @@ const items = [
     isSold: false,
     seller: {
       connect: {
-        userID: "9b04ce1b-d73c-413e-a06c-e37b4d01d5de",
+        userID: "71cdf164-1044-4830-bd26-9cb3f9a2244c",
       },
     },
     price: 600,
@@ -26,7 +26,7 @@ const items = [
     isSold: false,
     seller: {
       connect: {
-        userID: "9b04ce1b-d73c-413e-a06c-e37b4d01d5de",
+        userID: "71cdf164-1044-4830-bd26-9cb3f9a2244c",
       },
     },
     price: 150,
@@ -41,7 +41,7 @@ const items = [
     isSold: true,
     seller: {
       connect: {
-        userID: "9b04ce1b-d73c-413e-a06c-e37b4d01d5de",
+        userID: "71cdf164-1044-4830-bd26-9cb3f9a2244c",
       },
     },
     buyer: {
@@ -76,7 +76,15 @@ const seedItems = async (req, res) => {
 
 const getItems = async (req, res) => {
   try {
-    const items = await prisma.item.findMany();
+    const userID = req.params.userID;
+
+    const items = await prisma.item.findMany({
+      where: {
+        sellerID: {
+          not: userID,
+        },
+      },
+    });
 
     res.json(items);
   } catch (error) {
@@ -183,6 +191,21 @@ const deleteItem = async (req, res) => {
   }
 };
 
+const getItemsFromCart = async (req, res) => {
+  try {
+    const items = await prisma.item.findMany({
+      where: { cartID: parseInt(req.params.cartID) },
+    });
+
+    res.json(items);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "cannot get items" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 module.exports = {
   seedItems,
   getItems,
@@ -191,4 +214,5 @@ module.exports = {
   postOneItem,
   patchItem,
   deleteItem,
+  getItemsFromCart,
 };

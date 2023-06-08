@@ -2,15 +2,16 @@ import React, { useContext } from "react";
 import styles from "./HomePageItems.module.css";
 import UserContext from "../context/user";
 import { fetchData } from "../helpers/common";
+import { Link } from "react-router-dom";
 
 const HomePageItems = (props) => {
   const userCtx = useContext(UserContext);
 
-  const addingItemToCart = async (userID, itemID) => {
+  const addItemToCart = async () => {
     // update cart with item in database
     const body = {
-      userID: userID,
-      itemID: itemID,
+      cartID: userCtx.cartID,
+      itemID: props.itemID,
     };
     const { ok, data } = await fetchData(
       "/project/carts",
@@ -20,6 +21,7 @@ const HomePageItems = (props) => {
     );
 
     if (ok) {
+      alert("Item added to cart");
       //   SetCart(data);
       console.log(ok);
     } else {
@@ -34,14 +36,11 @@ const HomePageItems = (props) => {
       <div className="col-sm-5">{props.description}</div>
       <div className="col-sm-2">{props.price}</div>
       <img className={styles.photo} src={props.imgUrl} />
-      <button className="col-sm-1" to="/itemid">
-        view
-      </button>
+      <Link to={`/home/${props.itemID}`}>
+        <button className="col-sm-1">view</button>
+      </Link>
       {/* link react router */}
-      <button
-        className="col-sm-1"
-        // onClick={addingItemToCart(userCtx.userID, props.itemID)}
-      >
+      <button className="col-sm-1" onClick={() => addItemToCart()}>
         add to cart
       </button>
     </div>

@@ -2,12 +2,14 @@ import React, { useContext, useState } from "react";
 import { fetchData } from "../helpers/common";
 import jwt_decode from "jwt-decode";
 import UserContext from "../context/user";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = (props) => {
   const userCtx = useContext(UserContext);
   // const [user, setUser] = useState("");
   const [email, setEmail] = useState("kzamanwar@gmail.com");
   const [password, setPassword] = useState("password");
+  let navigate = useNavigate();
 
   const handleLogin = async () => {
     const { ok, data } = await fetchData("/auth/login", undefined, "POST", {
@@ -18,7 +20,11 @@ const LoginPage = (props) => {
     if (ok) {
       userCtx.setAccessToken(data.access);
       const decoded = jwt_decode(data.access);
-      console.log(decoded);
+      console.log("decoded data", decoded);
+      userCtx.setUserID(decoded.userID);
+      userCtx.setCartID(decoded.cartID);
+      navigate("/home");
+
       // set the userId into context
     } else {
       console.log(data);
@@ -52,21 +58,21 @@ const LoginPage = (props) => {
       </div>
       <div className="row">
         <div className="col-md-4"></div>
+
         <button className="col-md-4" type="submit" onClick={handleLogin}>
           login
         </button>
+
         <div className="col-md-4"></div>
       </div>
       <br />
       <div className="row">
         <div className="col-md-4"></div>
-        <button
-          className="col-md-4"
-          type="submit"
-          onClick={() => props.setShowLogin(false)}
-        >
-          go to registion screen
-        </button>
+        <Link to="/registration">
+          <button className="col-md-4" type="submit">
+            go to registion screen
+          </button>
+        </Link>
         <div className="col-md-4"></div>
       </div>
     </>

@@ -1,10 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import { fetchData } from "../helpers/common";
 import UserContext from "../context/user";
+import CartPageItems from "./CartPageItems";
 
 const CartPage = () => {
-  //   const userCtx = useContext(UserContext);
-  //   const [cart, SetCart] = useState({});
+  if (userCtx.accessToken.length == 0) {
+    return <Navigate to="/" replace />;
+  }
+  const userCtx = useContext(UserContext);
+  const [cart, setCart] = useState([]);
   //   const addingItemToCart = async () => {
   //     const { ok, data } = await fetchData("/project/carts", undefined, "PATCH", {
   //       userID: userCtx.userID,
@@ -21,16 +25,29 @@ const CartPage = () => {
   //   useEffect(() => {
   //     addingItemToCart();
   //   }, []);
+  const getItemsFromCart = async () => {
+    const { ok, data } = await fetchData(
+      `/project/items/${userCtx.cartID}`,
+      undefined,
+      "POST"
+    );
 
+    if (ok) {
+      setCart(data);
+    } else {
+      console.log(data);
+    }
+  };
+  useEffect(() => {
+    getItemsFromCart();
+  }, []);
   return (
     <div>
       <div>My Cart</div>
-      <div>
-        Items:
-        {/* {item.name} */}
-        <button>Delete</button>
-      </div>
-      <div>Total:</div>
+      {cart.map((item) => {
+        return <CartPageItems key={item.itemID} item={item} />;
+      })}
+      <button className="col-sm-1">Confirm</button>
     </div>
   );
 };

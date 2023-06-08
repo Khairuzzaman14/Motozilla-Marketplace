@@ -25,6 +25,9 @@ const register = async (req, res) => {
         email: req.body.email,
         password: hash,
         isAdmin: req.body.isAdmin,
+        cart: {
+          create: {},
+        },
       },
     });
 
@@ -43,6 +46,9 @@ const login = async (req, res) => {
     if (!auth) {
       return res.status(400).json({ status: "error", msg: "not authorised" });
     }
+    const userCart = await prisma.cart.findUnique({
+      where: { userID: auth.userID },
+    });
 
     const result = await bcrypt.compare(req.body.password, auth.password);
     if (!result) {
@@ -51,12 +57,14 @@ const login = async (req, res) => {
         .status(401)
         .json({ status: "error", msg: "email or password error" });
     }
-
+    console.log("what is auth", auth);
+    console.log("what is usercart", userCart);
     const payload = {
       // this data is decoded in front end for components to read
       email: auth.email,
       isAdmin: auth.isAdmin,
-      // put the userId in
+      cartID: userCart.cartID,
+      userID: auth.userID,
     };
 
     const access = jwt.sign(payload, process.env.ACCESS_SECRET, {

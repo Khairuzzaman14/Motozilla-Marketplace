@@ -7,6 +7,7 @@ const {
   patchItem,
   deleteItem,
   patchSoldItems,
+  getItemsFromCart,
 } = require("../controllers/items");
 const {
   validateInsertItemData,
@@ -18,11 +19,12 @@ const checkValid = require("../middleware/checkValid");
 const router = express.Router();
 
 router.get("/seedItems", seedItems);
-router.get("/items", getItems);
+router.get("/items/:userID", getItems);
 router.put("/items", validateInsertItemData, checkValid, putItems);
 router.patch("/items/:id", patchSoldItems);
 router.post("/items", postOneItem);
 router.patch("/items", validateUpdatedItemData, checkValid, patchItem);
 router.delete("/items", validateDeleteItemData, checkValid, deleteItem);
+router.post("/items/:cartID", getItemsFromCart);
 
 module.exports = router;
