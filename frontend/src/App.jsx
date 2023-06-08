@@ -13,7 +13,6 @@ import ListItemPage from "./components/ListItemPage";
 function App() {
   const [accessToken, setAccessToken] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
-  const [showLogin, setShowLogin] = useState(true);
   const [userID, setUserID] = useState("");
   const [cartID, setCartID] = useState("");
   const [firstName, setFirstName] = useState("");
