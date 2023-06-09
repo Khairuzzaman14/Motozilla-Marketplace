@@ -142,6 +142,11 @@ const ProfilePage = () => {
         </Link>
         <br />
         <br />
+        {userCtx.isAdmin && (
+          <Link to="/users">
+            <button className="col-sm-1">See all users</button>
+          </Link>
+        )}
       </div>
     </>
   );

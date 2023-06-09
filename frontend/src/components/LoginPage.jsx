@@ -26,6 +26,7 @@ const LoginPage = (props) => {
       userCtx.setFirstName(decoded.firstName);
       userCtx.setLastName(decoded.lastName);
       userCtx.setEmail(decoded.email);
+      userCtx.setIsAdmin(decoded.isAdmin);
       navigate("/home");
     } else {
       console.log(data);

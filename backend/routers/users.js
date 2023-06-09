@@ -17,7 +17,7 @@ const {
 const router = express.Router();
 
 router.get("/seedUsers", seedUsers);
-router.get("/users", auth, checkValid, getUsers);
+router.get("/users", adminAuth, checkValid, getUsers);
 router.put("/users", adminAuth, validateInsertUserData, checkValid, putUsers);
 router.post("/users", postOneUser);
 router.patch("/users", validateUpdatedUserData, checkValid, patchUser);

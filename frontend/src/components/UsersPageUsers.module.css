@@ -1,0 +1,9 @@
+.item {
+  border: 1px solid black;
+}
+
+.photo {
+  height: 150px;
+  width: 100px;
+  /* mix-blend-mode: color-burn; */
+}

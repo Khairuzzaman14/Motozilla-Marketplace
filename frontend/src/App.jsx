@@ -9,6 +9,7 @@ import CartPage from "./components/CartPage";
 import { Routes, Route } from "react-router-dom";
 import ProfilePage from "./components/ProfilePage";
 import ListItemPage from "./components/ListItemPage";
+import UsersPage from "./components/UsersPage";
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
@@ -48,6 +49,7 @@ function App() {
           <Route path="/cart/:cartID" element={<CartPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/listItem" element={<ListItemPage />} />
+          <Route path="users" element={<UsersPage />} />
         </Routes>
       </div>
     </UserContext.Provider>
