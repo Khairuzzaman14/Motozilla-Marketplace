@@ -52,4 +52,6 @@ The user is also able to view listed and bought items in their profile page and 
 
 [ Prisma ](https://www.prisma.io/)
 
-- Prisma is an ORM that contains tools such as Prisma
+- Prisma is an ORM that contains tools such as Prisma Client and Prisma Migrate.
+- I struggled to get the models right from the start and had to change them alot of times throughout.
+- The relationships between the tables and the primary and foreign keys is not as straightforward as I think it would be.
