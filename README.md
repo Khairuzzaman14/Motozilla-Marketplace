@@ -11,7 +11,7 @@ This app uses the **PERN** stack.
 
 [ PostgreSQL ](https://www.postgresql.org/)
 
--PostgreSQL is an open source database that supports both non-relational and relational data types.
+- PostgreSQL is an open source database that supports both non-relational and relational data types.
 
 [ Express ](https://expressjs.com/)
 
