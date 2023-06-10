@@ -42,11 +42,11 @@ This app uses the **PERN** stack.
 
 ## General flow
 
-The user has to first register an account in order to use the app.
-Once the user has created an account, they can login by keying in their email and password in the login page.
-After logging in, the user will be directed to the Home page.
-In the Home page, the user will be able to view all the listed items from the other users.
-The user is also able to view listed and bought items in their profile page and also list an item there.
+1. The user has to first register an account in order to use the app.
+2. Once the user has created an account, they can login by keying in their email and password in the login page.
+3. After logging in, the user will be directed to the Home page.
+4. In the Home page, the user will be able to view all the listed items from the other users.
+5. The user is also able to view listed and bought items in their profile page and also list an item there.
 
 ## Challenges faced
 
